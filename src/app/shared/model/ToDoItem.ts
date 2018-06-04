@@ -4,8 +4,8 @@ interface ToDoItem{
   estimateDate:string;
   estimateTime:string;
   comment:string;
-  files:ItemFile[];
-  isEdit:boolean;
+  itemFiles:ItemFile[];
+  isEdit?:boolean;
   isCompleted:boolean;
   isPrioritized:boolean;
 }
