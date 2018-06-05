@@ -46,7 +46,9 @@ describe('ToDo Component測試', () => {
 
   it('取消按鈕hover顏色#FDFDFD',()=>{
     
-  })
+  });
   
-  it()
+  it('ES6 File API讀取',()=>{
+
+  })
 });

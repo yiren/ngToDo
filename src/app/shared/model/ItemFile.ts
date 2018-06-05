@@ -1,4 +1,4 @@
-interface ItemFile{
+export interface ItemFile{
   fileId:number;
   fileName:string;
   filePath:string;
