@@ -1,80 +1,85 @@
-<mat-card class="list-card">
-    <div class="card-header" fxLayout="column">
+<div class="list-card">
+    <div [ngClass]="{'prioritized-header': isPrioritized,'list-card-header':!isPrioritized}" fxLayout="column">
         <div fxFlex fxLayout fxLayoutAlign="start center">
             <div class="input-icon-spacing">
-                <mat-checkbox></mat-checkbox>
+                <mat-checkbox color="primary" [checked]="isComplete"></mat-checkbox>
             </div>
             <div fxFlex fxLayout="column">
                 <div fxFlex>
-                    <input class="todo-text-input" placeholder="Add Task">
+                    <input id="todo-text-input" *ngIf="isEdit" class="todo-text-input" placeholder="Add Task" [value]="text">
+                    <span *ngIf="!isEdit" [ngClass]="{'todo-completed': isComplete}">{{text}}</span>
                 </div>
             </div>
 
             <div fxFlex="75px" fxLayoutAlign="end">
-                <button mat-icon-button>
-                  <mat-icon *ngIf="false">star_border</mat-icon>
-                  <mat-icon class="todo-prioritized">star</mat-icon>
+                <button [disableRipple]="true" mat-icon-button (click)="togglePrioritize()">
+                  <mat-icon *ngIf="!isPrioritized">star_border</mat-icon>
+                  <mat-icon *ngIf="isPrioritized" class="todo-prioritized">star</mat-icon>
               </button>
-                <button mat-icon-button>
-                  <mat-icon class="todo-editing">create</mat-icon>
+                <button [disableRipple]="true" mat-icon-button (click)="toggleEdit()">
+                  <mat-icon [ngClass]="{'todo-editing': isEdit}">create</mat-icon>
               </button>
 
 
             </div>
 
         </div>
-        <div fxFlex fxLayout fxLayoutGap="10px" class="todo-subtitle">
-            <div>
+        <div *ngIf="!isEdit" fxFlex fxLayout fxLayoutGap="10px" class="todo-subtitle">
+            <div *ngIf="deadline.hasDeadline">
                 <span class="far fa-calendar-alt icon-spacing"></span>
-                <span>5/14</span>
+                <span>{{deadline.date}}</span>
             </div>
 
-            <span class="far fa-file"></span>
-            <span class="far fa-comment-dots"></span>
+            <span *ngIf="hasFile" class="far fa-file"></span>
+            <span *ngIf="hasComment" class="far fa-comment-dots"></span>
+        </div>
+    </div>
+    <div *ngIf="isEdit">
+        <div class="list-card-content" fxLayoutAlign="center center">
+            <div fxLayout="column" fxLayoutGap="20px">
+                <div>
+                    <label><span class="far fa-calendar-alt icon-spacing"></span>Deadline</label>
+                    <div class="input-spacing" fxLayout fxLayoutGap="20px">
+                        <kendo-datepicker [(value)]="value"></kendo-datepicker>
+                        <kendo-timepicker [(value)]="value"></kendo-timepicker>
+                    </div>
+                </div>
+                <div>
+                    <label><span class="far fa-file icon-spacing"></span>File</label>
+                    <div class="input-spacing" fxLayout fxLayoutGap="20px">
+                        <!--
+                      <div fxLayout="column">
+                            <span>20180514.zip</span>
+                            <span>uploaded yesterday</span>
+                        </div>
+                      -->
+                        <div fxLayout fxLayoutAlign="center center">
+
+                            <mat-icon class="file-icon">add_box</mat-icon>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label><span class="far fa-comment-dots icon-spacing"></span>Comment</label>
+                    <div class="input-spacing">
+                        <mat-form-field (dblclick)="enableTextAreaEdit()" class="todo-comment" floatLabel="never">
+                            <textarea matInput [disabled]="!textAreaEditable"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div fxLayout>
+            <button mat-button fxFlex class="todo-cancel-btn" (click)="cancel()"><mat-icon>clear</mat-icon> Cancel</button>
+            <button mat-button fxFlex class="todo-save-btn" (click)="save()"><mat-icon >add</mat-icon> Add Task</button>
         </div>
     </div>
 
-    <mat-card-content fxLayoutAlign="center center">
-        <div fxLayout="column" fxLayoutGap="20px">
-            <div>
-                <label><span class="far fa-calendar-alt icon-spacing"></span>Deadline</label>
-                <div class="input-spacing" fxLayout fxLayoutGap="20px">
-                    <kendo-datepicker [(value)]="value"></kendo-datepicker>
-                    <kendo-timepicker [(value)]="value"></kendo-timepicker>
-                </div>
-            </div>
-            <div>
-                <label><span class="far fa-file icon-spacing"></span>File</label>
-                <div class="input-spacing" fxLayout fxLayoutGap="20px">
-                    <div fxLayout="column">
-                        <span>20180514.zip</span>
-                        <span>uploaded yesterday</span>
-                    </div>
-                    <div fxLayout fxLayoutAlign="center center">
-                        <button class="file-icon" mat-icon-button>
-                          <mat-icon>add_box</mat-icon>
-                        </button>
-                    </div>
-                </div>
-            </div>
 
-            <div>
-                <label><span class="far fa-comment-dots icon-spacing"></span>Comment</label>
-                <div class="input-spacing">
-                    <mat-form-field floatLabel="never">
-                        <textarea matInput [disabled]="'true'"></textarea>
-                    </mat-form-field>
-                </div>
-            </div>
-
-        </div>
-
-
-    </mat-card-content>
-    <mat-card-actions>
-        <div fxLayout>
-            <button mat-button fxFlex class="todo-cancel" (click)="cancel()"><mat-icon>clear</mat-icon> Cancel</button>
-            <button mat-button fxFlex class="todo-save" (click)="updateTodo()"><mat-icon >add</mat-icon> Add Task</button>
-        </div>
-    </mat-card-actions>
-</mat-card>
+</div>
