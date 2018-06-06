@@ -8,7 +8,6 @@ import {
   createSelector
 } from '@ngrx/store';
 
-import { ToDoState } from './reducers/to-do-data-reducer.reducer';
 import { environment } from '../../environments/environment';
 
 export interface AppState {
@@ -23,4 +22,4 @@ export const reducers: ActionReducerMap<AppState> = {
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];
 
 //export const selectToDoFeatureState = createFeatureSelector<ToDoFeatureState>('todos');
-export const selectToDoState = (state:AppState)=>state.todos;
+

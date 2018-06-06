@@ -7,7 +7,8 @@ export enum ToDoTypes {
   AddToDoAction= '[ToDo] Add ToDo Action',
   UpdateToDoAction = '[ToDo] Update ToDo Action',
   MarkToDoPrioritizedAction = '[ToDo] Mark Prioritized ToDo Action',
-  MarkToDoCompletedAction = '[ToDo] Mark Completed ToDo Action'
+  MarkToDoCompletedAction = '[ToDo] Mark Completed ToDo Action',
+  SortToDosAction = '[ToDo] Sort ToDos Action'
 }
 
 export class LoadToDosAction implements Action {
@@ -17,6 +18,10 @@ export class LoadToDosAction implements Action {
 export class LoadToDosSuccessAction implements Action {
   readonly type = ToDoTypes.LoadToDosSuccessAction;
   constructor(public payload:ToDoItem[]){}
+}
+
+export class SortToDosAction implements Action {
+  readonly type = ToDoTypes.SortToDosAction;
 }
 
 export class AddToDoAction implements Action {
@@ -41,6 +46,7 @@ export class MarkToDoCompletedAction implements Action {
 
 export type ToDoActionsActions = LoadToDosAction |
 LoadToDosSuccessAction |
+SortToDosAction|
 AddToDoAction |
 UpdateToDoAction |
 MarkPrioritizedToDoAction |

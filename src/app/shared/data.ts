@@ -9,7 +9,7 @@ export const todoSeedData:ToDoItem[]=[
     comment: '練習TDD',
     isCompleted: false,
     isPrioritized: false,
-    createAt:new Date(2018, 6, 4),
+    modifiedAt:new Date(2018, 6, 4),
     itemFile:{
         fileId:1,
         fileName:'20180514.zip',
@@ -23,7 +23,7 @@ export const todoSeedData:ToDoItem[]=[
     estimateDate: '2018/06/05',
     estimateTime: '09:30',
     comment: '',
-    createAt:new Date(2018, 6, 5),
+    modifiedAt:new Date(2018, 6, 5),
     isCompleted: false,
     isPrioritized: true,
     itemFile: null
@@ -32,7 +32,7 @@ export const todoSeedData:ToDoItem[]=[
     todoId: 3,
     description: '寫更新ToDo Reducer Test',
     estimateDate: '2018/06/06',
-    createAt:new Date(2018, 6, 6),
+    modifiedAt:new Date(2018, 6, 6),
     estimateTime: '15:30',
     comment: 'Reducer',
     isCompleted: false,

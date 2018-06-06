@@ -1,1 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+body {
+    background-color: #E1E1E1
+}
+
+.input-block {}
+
+.input-card {
+    max-width: 620px;
+    //background-color: transparent;
+}
+
+.list-card {
+    max-width: 620px;
+    //background-color: transparent;
+}
+
+.todo-subtitle {
+    font-size: 10px;
+    color: #757575;
+    padding-left: 20px;
+}
+
+.todo-text-input {
+    font-size: 16px;
+    outline: none;
+    border: none;
+    color: #C8C8C8;
+    background-color: transparent;
+    &:focus {
+        color: black;
+        outline: none;
+    }
+}
+
+.todo-cancel {
+    background-color: #FFFFFF;
+    color: #D0021B;
+    &:hover {
+        background-color: #FDFDFD;
+    }
+}
+
+.todo-prioritized {
+    color: #F5A623;
+}
+
+.todo-save {
+    background-color: #4A90E2;
+    color: #FFFFFF;
+    &:hover {
+        background-color: #3982D7;
+    }
+}
+
+.input-spacing {
+    padding-left: 18px
+}
+
+.file-icon:hover {
+    color: #4A90E2
+}
+
+.icon-spacing {
+    margin-right: 5px;
+}
+
+.input-icon-spacing {
+    margin-right: 10px;
+}
+
+.todo-editing {
+    color: #4A90E2
+}

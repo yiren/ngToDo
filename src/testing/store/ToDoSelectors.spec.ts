@@ -6,14 +6,13 @@ import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import { todoEntities, todoSeedData } from '../../app/shared/data';
 
 import { TestBed } from '@angular/core/testing';
-import { todoSeedData } from './../../app/shared/data';
 
-describe('測試ToDo Selectors', ()=>{
+describe('測試ToDo Selectors', () => {
   let store: Store<fromApp.AppState>;
 
-  beforeEach(()=>{
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[
+      imports: [
         StoreModule.forRoot({
           ...fromApp.reducers,
           todos: fromToDoReducer.toDoReducer
@@ -26,14 +25,11 @@ describe('測試ToDo Selectors', ()=>{
 
   it('Todos Enitiies Selector', ()=>{
     let result;
-    //console.log(store);
-    store
-
-    .select(fromToDoReducer.selectToDoEntities)
-
-    .subscribe(data => result = data);
-    //console.log(result);
     
+    store
+    .select(fromToDoReducer.selectToDoEntities)
+    .subscribe(data => result = data);
+
     expect(result).toEqual(todoEntities);
 
     const todosFromRemote = [todoSeedData[1], todoSeedData[2]];
@@ -54,7 +50,7 @@ describe('測試ToDo Selectors', ()=>{
     .select(fromToDoReducer.selectAllToDos)
 
     .subscribe(data => result = data);
-    console.log(result);
+    //console.log(result);
     
     expect(result).toEqual(todoSeedData);
 

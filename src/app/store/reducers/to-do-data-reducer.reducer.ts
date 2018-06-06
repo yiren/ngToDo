@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import * as fromApp from './../index';
+import * as fromApp from '../index';
 import * as fromTodoActions from '../actions/to-do-data-actions.actions';
 
 import { Action, createSelector } from '@ngrx/store';
@@ -16,10 +16,10 @@ export const initialState: ToDoState = {
   entities: todoEntities,
   selectedToDoItem: null
 };
-
+export const selectToDoState = (state:fromApp.AppState)=>state.todos;
 export const getToDoEntities = (state: ToDoState) => state.entities;
 export const selectToDoEntities = createSelector(
-  fromApp.selectToDoState,
+  selectToDoState,
   getToDoEntities
 );
 
@@ -73,6 +73,7 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
       const entities = _.cloneDeep(state.entities);
 
       entities[action.payload.todoId].isPrioritized = true;
+      entities[action.payload.todoId].modifiedAt = new Date();
       return {
         ...state,
         entities
@@ -83,6 +84,7 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
       const entities = _.cloneDeep(state.entities);
 
       entities[action.payload.todoId].isCompleted = true;
+      entities[action.payload.todoId].modifiedAt = new Date();
       return {
         ...state,
         entities

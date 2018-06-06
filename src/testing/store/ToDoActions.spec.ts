@@ -1,8 +1,9 @@
 import * as fromToDoActions from '../../app/store/actions/to-do-data-actions.actions';
 import * as moment from 'moment';
 
+import { todoEntities, todoSeedData } from './../../app/shared/data';
+
 import { ToDoItem } from './../../app/shared/model/ToDoItem';
-import { todoSeedData } from './../../app/shared/data';
 
 describe('測試ToDo Actions', ()=>{
   describe('載入Todo',()=>{
@@ -54,7 +55,7 @@ describe('測試ToDo Actions', ()=>{
         estimateTime: '12:30',
         comment: '(更新)練習TDD',
         isCompleted: true,
-        createAt:new Date(2018,6,4),
+        modifiedAt:new Date(2018,6,4),
         isPrioritized: true,
         itemFile:{
           fileId: 1,
@@ -114,5 +115,15 @@ describe('測試ToDo Actions', ()=>{
 
     });
 
+  });
+
+  describe('任何Action後優先項目排列', () => {
+    it('Sort ToDo Action', () => {
+
+      const action = new fromToDoActions.SortToDosAction();
+      expect({...action}).toEqual({
+        type: fromToDoActions.ToDoTypes.SortToDosAction
+      });
+    });
   });
 });

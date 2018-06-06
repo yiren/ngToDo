@@ -10,6 +10,6 @@ export interface ToDoItem{
   itemFile: ItemFile;
   isCompleted:boolean;
   isPrioritized:boolean;
-  createAt:Date;
+  modifiedAt:Date;
   //orderIndex:number;
 }

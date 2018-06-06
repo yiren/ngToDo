@@ -20,6 +20,7 @@ describe('測試ToDo Reducer', () => {
     const action = new fromToDoActions.LoadToDosAction();
     const state = fromToDoReducer.toDoReducer(initialState, action);
 
+
     expect(state.entities).toEqual(todoEntities);
 
   });
@@ -45,7 +46,7 @@ describe('測試ToDo Reducer', () => {
       description: '跑Unit Testing',
       estimateDate: '2018/06/05',
       estimateTime: '11:30',
-      createAt:new Date(2018,6,5),
+      modifiedAt:new Date(),
       comment: '跑Unit Testing',
       isCompleted: false,
       isPrioritized: true,
@@ -70,7 +71,7 @@ describe('測試ToDo Reducer', () => {
       estimateTime: '12:30',
       comment: '(更新)練習TDD',
       isCompleted: true,
-      createAt:new Date(2018,6,4),
+      modifiedAt:new Date(2018,6,4),
       isPrioritized: true,
       itemFile:{
         fileId: 1,
@@ -93,25 +94,50 @@ describe('測試ToDo Reducer', () => {
 
 
   it('測試Mark Prioritized ToDo Reducer', () => {
-    const prioritizedTodo={
-      todoId:3
+    const prioritizedTodo = {
+      todoId: 3
     };
     const action = new fromToDoActions.MarkPrioritizedToDoAction(prioritizedTodo);
     const state = fromToDoReducer.toDoReducer(initialState, action);
     const newEntities = _.cloneDeep(state.entities);
     newEntities[prioritizedTodo.todoId].isPrioritized=true;
+    newEntities[prioritizedTodo.todoId].modifiedAt = new Date();
     expect(state.entities).toEqual(newEntities);
   });
 
   it('測試Mark Completed ToDo Reducer', () => {
-    const completedTodo={
-      todoId:2
+    const completedTodo = {
+      todoId: 2
     };
     const action = new fromToDoActions.MarkToDoCompletedAction(completedTodo);
-    const state= fromToDoReducer.toDoReducer(initialState, action);
+    const state = fromToDoReducer.toDoReducer(initialState, action);
     const newEntities = _.cloneDeep(state.entities);
     newEntities[completedTodo.todoId].isCompleted = true;
+    newEntities[completedTodo.todoId].modifiedAt = new Date();
     expect(state.entities).toEqual(newEntities);
   });
+
+  it('測試Sort ToDos Reducer', () => {
+
+    const action = new fromToDoActions.SortToDosAction();
+    const state = fromToDoReducer.toDoReducer(initialState, action);
+
+    const sortedEntities = _.cloneDeep(todoEntities);
+
+    let allTodos = _.values(sortedEntities);
+
+    allTodos = _.sortBy(allTodos, (todo: ToDoItem) => {
+      return todo.modifiedAt;
+    });
+
+    allTodos = _.sortBy(allTodos, (todo: ToDoItem) => {
+      return todo.isPrioritized;
+    }).reverse();
+
+    console.log(allTodos);
+    expect(state.entities).toEqual(todoEntities);
+
+  });
+
 
 });
