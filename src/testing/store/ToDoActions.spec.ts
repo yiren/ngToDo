@@ -50,7 +50,7 @@ describe('測試ToDo Actions', ()=>{
     describe('更新完整ToDo Item', () => {
       const updatedTodoItem: ToDoItem = {
         todoId: 1,
-        description: '(更新)寫新增ToDo Action Test',
+        taskName: '(更新)寫新增ToDo Action Test',
         estimateDate: '2018/06/04',
         estimateTime: '12:30',
         comment: '(更新)練習TDD',

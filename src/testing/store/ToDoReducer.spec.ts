@@ -43,7 +43,7 @@ describe('測試ToDo Reducer', () => {
   it('測試Add ToDo Reducer', () => {
     const newToDoItem:ToDoItem={
       todoId: 4,
-      description: '跑Unit Testing',
+      taskName: '跑Unit Testing',
       estimateDate: '2018/06/05',
       estimateTime: '11:30',
       modifiedAt:new Date(),
@@ -66,7 +66,7 @@ describe('測試ToDo Reducer', () => {
   it('測試Update ToDo Reducer', () => {
     const updatedTodoItem: ToDoItem = {
       todoId: 1,
-      description: '(更新)寫新增ToDo Action Test',
+      taskName: '(更新)寫新增ToDo Action Test',
       estimateDate: '2018/06/04',
       estimateTime: '12:30',
       comment: '(更新)練習TDD',

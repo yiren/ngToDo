@@ -3,7 +3,7 @@ import { ToDoItem } from "./model/ToDoItem";
 export const todoSeedData:ToDoItem[]=[
   {
     todoId: 1,
-    description: '寫新增ToDo Action Test',
+    taskName: '寫新增ToDo Action Test',
     estimateDate: '2018/06/04',
     estimateTime: '14:30',
     comment: '練習TDD',
@@ -19,7 +19,7 @@ export const todoSeedData:ToDoItem[]=[
   },
   {
     todoId: 2,
-    description: '寫更新ToDo Action Test',
+    taskName: '寫更新ToDo Action Test',
     estimateDate: '2018/06/05',
     estimateTime: '09:30',
     comment: '',
@@ -30,7 +30,7 @@ export const todoSeedData:ToDoItem[]=[
   },
   {
     todoId: 3,
-    description: '寫更新ToDo Reducer Test',
+    taskName: '寫更新ToDo Reducer Test',
     estimateDate: '2018/06/06',
     modifiedAt:new Date(2018, 6, 6),
     estimateTime: '15:30',

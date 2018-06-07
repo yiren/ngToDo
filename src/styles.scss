@@ -9,7 +9,11 @@ body {
 
 .nav {
     background-color: #4A90E2;
-    height: 76px;
+    height: 56px;
+}
+
+.todo-body {
+    max-width: 620px;
 }
 
 .tab-container {
@@ -17,6 +21,10 @@ body {
 }
 
 .tab {
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    height: 56px;
     color: #00408B;
     &:hover {
         color: #FFFFFF;
@@ -32,7 +40,7 @@ body {
 
 .input-card {
     max-width: 620px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     margin-top: 20px;
     //background-color: transparent;
 }
@@ -150,3 +158,5 @@ body {
     text-decoration: line-through;
     color: #9B9B9B
 }
+
+;
