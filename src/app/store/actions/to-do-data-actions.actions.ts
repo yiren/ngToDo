@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { ToDoFormData } from './../../shared/model/ToDoFormData';
 import { ToDoItem } from '../../shared/model/ToDoItem';
 
 export enum ToDoTypes {
@@ -26,7 +27,7 @@ export class SortToDosAction implements Action {
 
 export class AddToDoAction implements Action {
   readonly type = ToDoTypes.AddToDoAction;
-  constructor(public payload:ToDoItem){}
+  constructor(public payload:ToDoFormData){}
 }
 
 export class UpdateToDoAction implements Action {

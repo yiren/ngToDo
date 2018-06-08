@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import * as generalDateTimeFormat from '../shared/config/datetimeFormat';
+
+import { Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
+import { AppState } from '../store';
+import { Store } from '@ngrx/store';
+import { ToDoItem } from '../shared/model/ToDoItem';
+import { UpdateToDoAction } from './../store/actions/to-do-data-actions.actions';
 
 @Component({
   selector: 'f2e-todoitem',
@@ -6,34 +14,63 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./todoitem.component.scss']
 })
 export class TodoitemComponent implements OnInit {
-  
-  @Input()
-  isEdit:boolean;
-  
-  @Input()
-  isPrioritized:boolean;
 
   @Input()
-  isComplete:boolean;
+  todoItem:ToDoItem;
 
-  @Input()
-  hasFile:boolean;
+  // @Input()
+   isEdit:boolean;
 
-  @Input()
-  hasComment:boolean;
+  // @Input()
+   //isPrioritized=false;
 
-  @Input()
-  deadline:{hasDeadline:boolean, date:string}
-  @Input()
-  text:string;
+  // @Input()
+   //isComplete:boolean;
 
-  textAreaEditable = false;
-  constructor() { }
-  
+  // @Input()
+  // hasFile:boolean;
+
+  // @Input()
+  // hasComment:boolean;
+
+  // @Input()
+  // deadline:{hasDeadline:boolean, date:string}
+  // @Input()
+  // text:string;
+
+  @ViewChild('fileInput')
+  fileInputEl:ElementRef;
+  constructor(
+    private fb:FormBuilder,
+    private store:Store<AppState>
+  ) { }
+
+  todoEditForm:FormGroup;
+  dateFormat = generalDateTimeFormat.generalDateFormat;
+  timeFormat = generalDateTimeFormat.generalTimeFormat;
+
+  datePlaceHolderFormat = generalDateTimeFormat.generalDatePlaceHolderFormat;
+  timePlaceHolderFormat = generalDateTimeFormat.generalTimePlaceHolderFormat;
+
+
   ngOnInit() {
+    this.todoEditForm = this.fb.group({
+      'taskName':[''],
+      'estimateDate':[null],
+      'estimateTime':[null],
+      'comment':[{value:'', disabled:true}],
+      'itemFile':[null],
+      'isPrioritized':[false],
+      'isCompleted':[false],
+      'todoId': [undefined],
+      'modifiedAt':[null],
+    });
   }
   enableTextAreaEdit(){
-    this.textAreaEditable=true;
+
+  }
+  getFile() {
+    this.fileInputEl.nativeElement.click();
   }
 
   togglePrioritize(){
@@ -45,10 +82,20 @@ export class TodoitemComponent implements OnInit {
   }
   cancel(){
     this.isEdit=false;
+    this.todoEditForm.reset()
   }
   save(){
-    
+    if(this.fileInputEl.nativeElement.files.length != 0){
+      console.log(this.fileInputEl.nativeElement.files[0].name);
+
+      this.todoEditForm.controls['itemFile'].setValue({
+        fileName:this.fileInputEl.nativeElement.files[0].name
+        });
+    }
+    this.todoEditForm.controls['isPrioritized'].setValue(this.isPrioritized);
+    console.log(this.todoEditForm.value);
+    this.store.dispatch(new UpdateToDoAction(this.todoEditForm.value));
   }
 
-  
+
 }

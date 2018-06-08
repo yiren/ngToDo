@@ -20,13 +20,13 @@
         </div>
 
         <div *ngIf="isEdit">
-            <div class="list-card-content" fxLayoutAlign="center center">
+            <div class="list-card-content" (dblclick)="enableTextAreaEdit()" fxLayoutAlign="center center">
                 <div fxLayout="column" fxLayoutGap="20px">
                     <div>
                         <label><span class="far fa-calendar-alt icon-spacing"></span>Deadline</label>
                         <div class="input-spacing" fxLayout fxLayoutGap="20px">
-                            <kendo-datepicker placeholder="yyyy/mm/dd" [formatPlaceholder]="datePlaceHolderFormat" [format]="dateFormat" formControlName="estimateDate"></kendo-datepicker>
-                            <kendo-timepicker placeholder="hh:mm" [formatPlaceholder]="timePlaceHolderFormat" [format]="timeFormat" formControlName="estimateTime"></kendo-timepicker>
+                            <kendo-datepicker placeholder="yyyy/mm/dd" [format]="dateFormat" [formatPlaceholder]="datePlaceHolderFormat" formControlName="estimateDate"></kendo-datepicker>
+                            <kendo-timepicker placeholder="hh:mm" [format]="timeFormat" [formatPlaceholder]="timePlaceHolderFormat" formControlName="estimateTime"></kendo-timepicker>
                         </div>
                     </div>
                     <div>
@@ -48,9 +48,9 @@
 
                     <div>
                         <label><span class="far fa-comment-dots icon-spacing"></span>Comment</label>
-                        <div class="input-spacing" (dblclick)="enableTextAreaEdit()">
-                            <div class="todo-comment">
-                                <textarea style="background-color: #ffffff" matInput formControlName="comment"></textarea>
+                        <div class="input-spacing">
+                            <div>
+                                <textarea class="todo-comment" formControlName="comment"></textarea>
                             </div>
                         </div>
                     </div>

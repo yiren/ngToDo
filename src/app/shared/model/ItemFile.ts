@@ -1,6 +1,6 @@
 export interface ItemFile{
-  fileId:number;
+  //fileId:number;
   fileName:string;
-  filePath:string;
-  uploadedDate:string;
+  //filePath:string;
+  uploadedDate:Date;
 }

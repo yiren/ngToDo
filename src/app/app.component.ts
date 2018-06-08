@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     this.store.dispatch(new fromToDoActions.LoadToDosAction());
     this.todoState$ = this.store.select(fromToDoReducer.selectAllToDos);
+    //this.store.select(fromToDoReducer.selectAllToDos).subscribe(console.log);
   }
 
 }

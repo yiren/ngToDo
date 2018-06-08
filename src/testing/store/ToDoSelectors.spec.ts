@@ -3,7 +3,7 @@ import * as fromToDoActions from '../../app/store/actions/to-do-data-actions.act
 import * as fromToDoReducer from './../../app/store/reducers/to-do-data-reducer.reducer';
 
 import { Store, StoreModule, combineReducers } from '@ngrx/store';
-import { todoEntities, todoSeedData } from '../../app/shared/data';
+import { todoEntitiesSeedData, todoSeedData } from '../../app/shared/data';
 
 import { TestBed } from '@angular/core/testing';
 
@@ -30,7 +30,7 @@ describe('測試ToDo Selectors', () => {
     .select(fromToDoReducer.selectToDoEntities)
     .subscribe(data => result = data);
 
-    expect(result).toEqual(todoEntities);
+    expect(result).toEqual(todoEntitiesSeedData);
 
     const todosFromRemote = [todoSeedData[1], todoSeedData[2]];
     store.dispatch(new fromToDoActions.LoadToDosSuccessAction(todosFromRemote));

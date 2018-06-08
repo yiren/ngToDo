@@ -3,7 +3,7 @@ import * as fromApp from '../index';
 import * as fromTodoActions from '../actions/to-do-data-actions.actions';
 
 import { Action, createSelector } from '@ngrx/store';
-import { todoEntities, todoSeedData } from './../../shared/data';
+import { todoEntitiesSeedData, todoSeedData } from './../../shared/data';
 
 import { ToDoItem } from './../../shared/model/ToDoItem';
 
@@ -13,7 +13,7 @@ export interface ToDoState {
 }
 
 export const initialState: ToDoState = {
-  entities: todoEntities,
+  entities: todoEntitiesSeedData,
   selectedToDoItem: null
 };
 export const selectToDoState = (state:fromApp.AppState)=>state.todos;
@@ -52,7 +52,25 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
     }
     case (fromTodoActions.ToDoTypes.AddToDoAction):{
       const todo = action.payload;
-      const entities = {...state.entities, [todo.todoId]:todo};
+      const entities = _.cloneDeep(state.entities);
+      
+      const newToDoItem:ToDoItem = {
+        todoId: (Object.keys(entities).length + 1),
+        taskName: todo.taskName,
+        estimateDate: todo.estimateDate,
+        estimateTime: todo.estimateTime,
+        comment: todo.comment,
+        isCompleted: false,
+        modifiedAt:  new Date(),
+        isPrioritized: todo.isPrioritized,
+        itemFile: {
+          fileName: todo.itemFile.fileName,
+          uploadedDate: new Date(),
+        }
+      };
+
+      entities[newToDoItem.todoId] = newToDoItem;
+      console.log('new todo impl', newToDoItem);
       return {
         ...state,
         entities
@@ -61,8 +79,10 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
 
     case (fromTodoActions.ToDoTypes.UpdateToDoAction):{
       const updateTodo=action.payload;
-      const entities={...state.entities};
+      const entities=_.cloneDeep(state.entities);
+      
       entities[updateTodo.todoId] = updateTodo;
+      
       return {
         ...state,
         entities

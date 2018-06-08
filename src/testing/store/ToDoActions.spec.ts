@@ -1,8 +1,9 @@
 import * as fromToDoActions from '../../app/store/actions/to-do-data-actions.actions';
 import * as moment from 'moment';
 
-import { todoEntities, todoSeedData } from './../../app/shared/data';
+import { addToDoSeedData, todoEntitiesSeedData, todoSeedData, updatedTodoItemSeedData } from './../../app/shared/data';
 
+import { ToDoFormData } from '../../app/shared/model/ToDoFormData';
 import { ToDoItem } from './../../app/shared/model/ToDoItem';
 
 describe('測試ToDo Actions', ()=>{
@@ -27,13 +28,13 @@ describe('測試ToDo Actions', ()=>{
   });
 
   describe('新增ToDo', () => {
-    const newTodoItem: ToDoItem = todoSeedData[0];
+    
       it('新增Todo Action', () => {
-        const action = new fromToDoActions.AddToDoAction(newTodoItem);
+        const action = new fromToDoActions.AddToDoAction(addToDoSeedData);
 
         expect({...action}).toEqual({
           type: fromToDoActions.ToDoTypes.AddToDoAction,
-          payload: newTodoItem
+          payload: addToDoSeedData
         });
       });
       // xit('完成新增Todo Action', ()=>{
@@ -48,29 +49,14 @@ describe('測試ToDo Actions', ()=>{
 
   describe('更新Todo item', () => {
     describe('更新完整ToDo Item', () => {
-      const updatedTodoItem: ToDoItem = {
-        todoId: 1,
-        taskName: '(更新)寫新增ToDo Action Test',
-        estimateDate: '2018/06/04',
-        estimateTime: '12:30',
-        comment: '(更新)練習TDD',
-        isCompleted: true,
-        modifiedAt:new Date(2018,6,4),
-        isPrioritized: true,
-        itemFile:{
-          fileId: 1,
-          fileName: '20180528.zip',
-          uploadedDate: '2018/06/05',
-          filePath:'http://xxxx.xxxl.com/dsljio/'
-        }
-      };
+      
       it('更新TodoItem Action',()=>{
 
-        const action = new fromToDoActions.UpdateToDoAction(updatedTodoItem);
+        const action = new fromToDoActions.UpdateToDoAction(updatedTodoItemSeedData);
 
          expect({...action}).toEqual({
               type: fromToDoActions.ToDoTypes.UpdateToDoAction,
-              payload: updatedTodoItem
+              payload: updatedTodoItemSeedData
             });
 
       });

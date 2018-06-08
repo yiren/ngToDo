@@ -4,8 +4,8 @@ import { Timestamp } from "rxjs";
 export interface ToDoItem{
   todoId:number;
   taskName:string;
-  estimateDate:string;
-  estimateTime:string;
+  estimateDate:Date;
+  estimateTime:Date;
   comment:string;
   itemFile: ItemFile;
   isCompleted:boolean;
