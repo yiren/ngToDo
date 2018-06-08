@@ -29,7 +29,7 @@ export class AddtodoComponent implements OnInit {
   timePlaceHolderFormat = generalDateTimeFormat.generalTimePlaceHolderFormat;
 
   isPrioritized = false;
-  isEdit = true;
+  isEdit = false;
 
   todoForm: FormGroup;
 
@@ -83,6 +83,7 @@ export class AddtodoComponent implements OnInit {
     this.todoForm.controls['isPrioritized'].setValue(this.isPrioritized);
     console.log(this.todoForm.value);
     this.store.dispatch(new AddToDoAction(this.todoForm.value));
-    //this.todoForm.reset();
+    this.todoForm.reset();
+    this.isEdit=false;
   }
 }

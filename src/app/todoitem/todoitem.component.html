@@ -3,12 +3,12 @@
         <div [ngClass]="{'prioritized-header': isPrioritized,'list-card-header':!isPrioritized}" fxLayout="column">
             <div fxFlex fxLayout fxLayoutAlign="start center">
                 <div class="input-icon-spacing">
-                    <mat-checkbox color="primary" [checked]="isComplete"></mat-checkbox>
+                    <mat-checkbox color="primary" formControlName="isCompleted"></mat-checkbox>
                 </div>
                 <div fxFlex fxLayout="column">
                     <div fxFlex>
-                        <input id="todo-text-input" *ngIf="isEdit" class="todo-text-input" placeholder="Add Task" formControlName="taskName" [value]="text">
-                        <span *ngIf="!isEdit" [ngClass]="{'todo-completed': isComplete}">{{text}}</span>
+                        <input id="todo-text-input" *ngIf="isEdit" class="todo-text-input" placeholder="Add Task" formControlName="taskName">
+                        <span *ngIf="!isEdit" [ngClass]="{'todo-completed': isToDoComplete()}">{{getTaskName()}}</span>
                     </div>
                 </div>
 
@@ -26,38 +26,39 @@
 
             </div>
             <div *ngIf="!isEdit" fxFlex fxLayout fxLayoutGap="10px" class="todo-subtitle">
-                <div *ngIf="true">
+                <div *ngIf="todoItem.estimateDate">
                     <span class="far fa-calendar-alt icon-spacing"></span>
-                    <span></span>
+                    <span>{{displaySubTitleDate()}}</span>
                 </div>
 
-                <span *ngIf="true" class="far fa-file"></span>
-                <span *ngIf="true" class="far fa-comment-dots"></span>
+                <span *ngIf="todoItem.itemFile" class="far fa-file"></span>
+                <span *ngIf="todoItem.comment" class="far fa-comment-dots"></span>
             </div>
         </div>
+        <input type="file" style="display:none" (change)="null" #fileInput>
         <div *ngIf="isEdit">
             <div class="list-card-content" (dblclick)="enableTextAreaEdit()" fxLayoutAlign="center center">
                 <div fxLayout="column" fxLayoutGap="20px">
                     <div>
                         <label><span class="far fa-calendar-alt icon-spacing"></span>Deadline</label>
                         <div class="input-spacing" fxLayout fxLayoutGap="20px">
-                            <kendo-datepicker placeholder="yyyy/mm/dd" [format]="dateFormat" [formatPlaceholder]="datePlaceHolderFormat" formControlName="estimateDate"></kendo-datepicker>
-                            <kendo-timepicker placeholder="hh:mm" [format]="timeFormat" [formatPlaceholder]="timePlaceHolderFormat" formControlName="estimateTime"></kendo-timepicker>
+                            <kendo-datepicker placeholder="yyyy/mm/dd" [format]="dateFormat" [formatPlaceholder]="datePlaceHolderFormat" formControlName="estimateDate" [value]="todoItem.estimateDate"></kendo-datepicker>
+                            <kendo-timepicker placeholder="hh:mm" [format]="timeFormat" [formatPlaceholder]="timePlaceHolderFormat" formControlName="estimateTime" [value]="todoItem.estimateTime"></kendo-timepicker>
                         </div>
                     </div>
                     <div>
                         <label><span class="far fa-file icon-spacing"></span>File</label>
                         <div class="input-spacing" fxLayout fxLayoutGap="20px">
-                            <div fxLayout="column" *ngIf="fileInput.files.length!=0">
+                            <div fxLayout="column" *ngIf="hasFile()">
 
-                                <span>{{fileInput.files[0].name}}</span>
-                                <span>uploaded today</span>
+                                <span>{{getFileName()}}</span>
+                                <span>updated {{getDiffDays()}}</span>
 
 
                             </div>
                             <div fxLayout fxLayoutAlign="center center">
                                 <mat-icon class="file-icon" (click)="getFile()">add_box</mat-icon>
-                                <input type="file" style="display:none" (change)="null" #fileInput>
+
                             </div>
                         </div>
                     </div>
@@ -66,7 +67,7 @@
                         <label><span class="far fa-comment-dots icon-spacing"></span>Comment</label>
                         <div class="input-spacing">
                             <div>
-                                <textarea class="todo-comment" formControlName="comment"></textarea>
+                                <textarea class="todo-comment" formControlName="comment" [value]="todoItem.comment"></textarea>
                             </div>
                         </div>
                     </div>

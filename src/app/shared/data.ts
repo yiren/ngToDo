@@ -5,26 +5,26 @@ export const todoSeedData:ToDoItem[]=[
   {
     todoId: 1,
     taskName: '寫新增ToDo Action Test',
-    estimateDate: new Date(2018, 6, 4),
-    estimateTime: new Date(2018, 6, 4, 14, 30),
+    estimateDate: new Date(2018, 5, 4),
+    estimateTime: new Date(2018, 5, 4, 14, 30),
     comment: '練習TDD',
     isCompleted: false,
     isPrioritized: false,
-    modifiedAt:new Date(2018, 6, 4),
+    modifiedAt:new Date(2018, 5, 4),
     itemFile:{
         
         fileName:'20180514.zip',
-        uploadedDate:new Date(2018, 6, 4),
+        uploadedDate:new Date(2018, 5, 4),
         
       }
   },
   {
     todoId: 2,
     taskName: '寫更新ToDo Action Test',
-    estimateDate: new Date(2018, 6, 5),
-    estimateTime: new Date(2018, 6, 5, 18, 30),
+    estimateDate: new Date(2018, 5, 5),
+    estimateTime: new Date(2018, 5, 5, 18, 30),
     comment: '',
-    modifiedAt:new Date(2018, 6, 5),
+    modifiedAt:new Date(2018, 5, 5),
     isCompleted: false,
     isPrioritized: true,
     itemFile: null
@@ -32,9 +32,9 @@ export const todoSeedData:ToDoItem[]=[
   {
     todoId: 3,
     taskName: '寫更新ToDo Reducer Test',
-    estimateDate: new Date(2018, 6, 6),
-    modifiedAt:new Date(2018, 6, 6),
-    estimateTime: new Date(2018, 6, 4, 9, 30),
+    estimateDate: new Date(2018, 5, 6),
+    modifiedAt:new Date(2018, 5, 6),
+    estimateTime: new Date(2018, 5, 4, 9, 30),
     comment: 'Reducer',
     isCompleted: false,
     isPrioritized: false,
