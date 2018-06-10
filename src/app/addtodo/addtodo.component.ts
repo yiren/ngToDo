@@ -44,6 +44,7 @@ export class AddtodoComponent implements OnInit {
 
   hideEdit() {
     this.isEdit = false;
+    this.isPrioritized=false;
   }
 
   enableTextAreaEdit() {
@@ -61,6 +62,7 @@ export class AddtodoComponent implements OnInit {
   cancel() {
     this.todoForm.reset();
     this.isEdit = false;
+    this.isPrioritized=false;
   }
   ngOnInit() {
     this.todoForm = this.fb.group({
@@ -74,16 +76,17 @@ export class AddtodoComponent implements OnInit {
   }
   save() {
     if(this.fileInputEl.nativeElement.files.length!=0){
-      console.log(this.fileInputEl.nativeElement.files[0].name);
+      //console.log(this.fileInputEl.nativeElement.files[0].name);
 
       this.todoForm.controls['itemFile'].setValue({
         fileName:this.fileInputEl.nativeElement.files[0].name
         });
     }
     this.todoForm.controls['isPrioritized'].setValue(this.isPrioritized);
-    console.log(this.todoForm.value);
+    //console.log(this.todoForm.value);
     this.store.dispatch(new AddToDoAction(this.todoForm.value));
     this.todoForm.reset();
     this.isEdit=false;
+    
   }
 }

@@ -14,3 +14,6 @@
 <f2e-todoitem text="Type Something Here..." [isComplete]="true" [isEdit]="false" [isPrioritized]="false" [hasFile]="true" [hasComment]="true" [deadline]="{hasDeadline:false, date:''}">
 </f2e-todoitem>
 -->
+
+<f2e-addtodo></f2e-addtodo>
+<f2e-todoitem [todoItem]="todo" *ngFor="let todo of (filteredTodoState$ | async)"></f2e-todoitem>

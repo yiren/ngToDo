@@ -74,6 +74,7 @@ export class TodoitemComponent implements OnInit {
     this.isComplete=this.todoItem.isCompleted;
     this.todoEditForm.controls['isCompleted'].valueChanges.subscribe(completeState=>{
       this.todoId=this.todoEditForm.controls['todoId'].value;
+     // console.log(this.todoId);
       if(completeState){
         this.store.dispatch(new MarkToDoCompletedAction({todoId:this.todoId}));
       }
@@ -83,6 +84,7 @@ export class TodoitemComponent implements OnInit {
     });
     this.todoEditForm.controls['isPrioritized'].valueChanges.subscribe(prioritizedState=>{
       this.todoId=this.todoEditForm.controls['todoId'].value;
+      //console.log(this.todoId);
       if(prioritizedState){
         this.store.dispatch(new MarkPrioritizedToDoAction({todoId:this.todoId}));
       }

@@ -7,7 +7,7 @@ export interface ToDoItem{
   estimateDate:Date;
   estimateTime:Date;
   comment:string;
-  itemFile: ItemFile;
+  itemFile?: ItemFile;
   isCompleted:boolean;
   isPrioritized:boolean;
   modifiedAt:Date;

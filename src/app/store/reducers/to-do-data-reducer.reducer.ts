@@ -32,12 +32,15 @@ export const SelectSortedToDoItems=createSelector(
 
 export const selectAllToDos = createSelector(
   selectToDoEntities,
-  (entities:{[id:number]:ToDoItem}) => _.keys(entities).map(id => entities[parseInt(id,10)])
-)
+  (entities:{[id:number]:ToDoItem}) =>
+  //Object.keys(entities).map(id=>entities[parseInt(id,10)])
+  sortToDoItems(_.values(entities))
+
+);
 
 
 function sortToDoItems(allTodos:ToDoItem[]){
-    
+
     allTodos = _.sortBy(allTodos, (todo: ToDoItem) => {
       return todo.modifiedAt;
     });
@@ -45,7 +48,7 @@ function sortToDoItems(allTodos:ToDoItem[]){
     allTodos = _.sortBy(allTodos, (todo: ToDoItem) => {
       return todo.isPrioritized;
     }).reverse();
-    
+
     return allTodos;
 }
 
@@ -54,7 +57,8 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
   switch (action.type) {
 
     case (fromTodoActions.ToDoTypes.LoadToDosSuccessAction):{
-      const todos = action.payload;
+      const todos = sortToDoItems(action.payload);
+      console.log("todos",todos);
       const newEntities = todos.reduce(
         (entities: {[id: number]: ToDoItem}, todo: ToDoItem) => {
         return {
@@ -62,7 +66,7 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
           [todo.todoId]: todo
         };
       },{});
-
+      console.log("entities",newEntities);
       return {
         ...state,
         entities: newEntities
@@ -81,11 +85,13 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
         isCompleted: false,
         modifiedAt:  new Date(),
         isPrioritized: todo.isPrioritized,
-        itemFile: {
+      };
+      if(todo.itemFile){
+        newToDoItem.itemFile={
           fileName: todo.itemFile.fileName,
           uploadedDate: new Date(),
         }
-      };
+      }
 
       entities[newToDoItem.todoId] = newToDoItem;
       //console.log('new todo impl', newToDoItem);
@@ -151,13 +157,8 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
       };
     }
 
-    default:{
-      const sortedToDoItems = sortToDoItems(_.cloneDeep(state.sortedToDoItems));
-      
-      return {
-        ...state,
-        sortedToDoItems
-      };
-    }
+    default:
+      return state;
+
   }
 }

@@ -3,12 +3,12 @@ import { ToDoItem } from "./model/ToDoItem";
 
 export const todoSeedData:ToDoItem[]=[
   {
-    todoId: 1,
+    todoId: 9,
     taskName: '寫新增ToDo Action Test',
     estimateDate: new Date(2018, 5, 4),
     estimateTime: new Date(2018, 5, 4, 14, 30),
     comment: '練習TDD',
-    isCompleted: false,
+    isCompleted: true,
     isPrioritized: false,
     modifiedAt:new Date(2018, 5, 4),
     itemFile:{
@@ -19,7 +19,7 @@ export const todoSeedData:ToDoItem[]=[
       }
   },
   {
-    todoId: 2,
+    todoId: 4,
     taskName: '寫更新ToDo Action Test',
     estimateDate: new Date(2018, 5, 5),
     estimateTime: new Date(2018, 5, 5, 18, 30),

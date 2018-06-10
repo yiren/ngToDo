@@ -1,12 +1,11 @@
+import {RouterModule, Routes} from '@angular/router'
 import { metaReducers, reducers } from './store';
 
 import { AddtodoComponent } from './addtodo/addtodo.component';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { HttpClientModule } from '@angular/common/http';
-import { InputsModule } from '@progress/kendo-angular-inputs';
 import { KendoUISharedModule } from './shared/module/kendoUISharedModule';
 import { MaterialUISharedModule } from './shared/module/materialUISharedModule';
 import { NgModule } from '@angular/core';
@@ -15,8 +14,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { TodoitemComponent } from './todoitem/todoitem.component';
 import { TodolistComponent } from './todolist/todolist.component';
-import { UploadModule } from '@progress/kendo-angular-upload';
 import { environment } from '../environments/environment';
+
+const routes:Routes=[
+  {'path':'', component:TodolistComponent}
+]
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
     ReactiveFormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],

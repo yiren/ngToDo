@@ -1,21 +1,28 @@
 <div class="nav" fxLayoutAlign="center">
     <div fxFlex></div>
     <div fxFlex="620px" fxLayout fxLayoutAlign="start stretch" fxLayoutGap="20px">
-        <div class="tab" fxFlex fxLayoutAlign="center center">
+
+        <a class="tab" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" fxFlex fxLayoutAlign="center center" [routerLink]="['']">
             My Task
-        </div>
-        <div class="tab" fxFlex fxLayoutAlign="center center">
-            In Progress
-        </div>
-        <div class="tab" fxFlex fxLayoutAlign="center center">
-            Completed
-        </div>
+          </a>
+
+            <a class="tab" routerLinkActive="active" fxFlex fxLayoutAlign="center center" [routerLink]="['']" [queryParams]="{ completed: 0}">
+                In Progress
+              </a>
+
+
+
+            <a class="tab" routerLinkActive="active" fxFlex fxLayoutAlign="center center" [routerLink]="['']" [queryParams]="{ completed: 1}">
+                Completed
+              </a>
+
     </div>
     <div fxFlex></div>
 </div>
 <div fxLayout fxLayoutAlign="center">
     <div fxFlex="620px" fxLayout="column" fxLayoutGap="10px">
-        <f2e-addtodo></f2e-addtodo>
-        <f2e-todoitem [todoItem]="todo" *ngFor="let todo of (todoState$ | async)"></f2e-todoitem>
+
+        <router-outlet></router-outlet>
+
     </div>
 </div>
