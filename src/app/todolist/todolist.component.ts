@@ -4,7 +4,7 @@ import * as fromToDoReducer from '../store/reducers/to-do-data-reducer.reducer';
 
 import { Component, OnInit } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
-import {filter, map, mergeMap, switchMap, tap} from 'rxjs/operators';
+import { filter, map, mergeMap, share, switchMap, tap } from 'rxjs/operators';
 
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -24,6 +24,8 @@ export class TodolistComponent implements OnInit {
   todoState$:Observable<ToDoItem[]>;
   queryParam$:Observable<number>;
   filteredTodoState$:Observable<ToDoItem[]>
+  taskCount:number;
+  isCompleted:boolean=false;
   ngOnInit() {
     this.store.dispatch(new fromToDoActions.LoadToDosAction());
     this.todoState$ = this.store.select(fromToDoReducer.selectAllToDos);
@@ -38,25 +40,34 @@ export class TodolistComponent implements OnInit {
     //   )
     //    }
     // );
-    
+
     this.queryParam$=this.route.queryParamMap.pipe(
       map(params=>parseInt(params.get('completed'),10))
     );
     this.filteredTodoState$ =
     this.filteredTodoState$=combineLatest(this.todoState$, this.queryParam$,
       (todos, queryParams)=>{
-        
-        if(isNaN(queryParams)){ 
-          //console.log(queryParams)  
+
+        if(isNaN(queryParams)){
+          //console.log(queryParams)
           return todos;
         }
-        console.log(queryParams)
-        const isCompleted=queryParams ? true : false;
-        return todos.filter((todo)=>todo.isCompleted==isCompleted)
+        this.isCompleted=queryParams ? true : false;
+        return todos.filter((todo)=>todo.isCompleted==this.isCompleted)
       }
-    )
+    ).pipe(
+      tap(todos=>{
+        todos=todos.filter((todo)=>todo.isCompleted==this.isCompleted)
+        this.taskCount=todos.length;
+      })
+    );
     //.subscribe(data=>console.log('filtered',data))
 
   }
-
+  getCountBlockText(){
+    if(this.isCompleted){
+      return `${this.taskCount} task(s) completeds`;
+    }
+    return `${this.taskCount} task(s) left`;
+  }
 }

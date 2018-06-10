@@ -6,6 +6,7 @@ import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import { todoEntitiesSeedData, todoSeedData } from '../../app/shared/data';
 
 import { TestBed } from '@angular/core/testing';
+import { sortToDoItems } from '../../app/store/reducers/to-do-data-reducer.reducer';
 
 describe('測試ToDo Selectors', () => {
   let store: Store<fromApp.AppState>;
@@ -52,13 +53,12 @@ describe('測試ToDo Selectors', () => {
     .subscribe(data => result = data);
     //console.log(result);
     
-    expect(result).toEqual(todoSeedData);
+    expect(result).toEqual(sortToDoItems(todoSeedData));
 
     const todosFromRemote = [todoSeedData[1], todoSeedData[2]];
     store.dispatch(new fromToDoActions.LoadToDosSuccessAction(todosFromRemote));
-
     
-    expect(result).toEqual(todosFromRemote);
+    expect(result).toEqual(sortToDoItems(todosFromRemote));
   });
 
 });

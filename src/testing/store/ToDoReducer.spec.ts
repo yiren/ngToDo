@@ -33,8 +33,8 @@ describe('測試ToDo Reducer', () => {
     const state = fromToDoReducer.toDoReducer(initialState, action);
 
     const newEntities = {
-      2: todoSeedData[1],
-      3: todoSeedData[2]
+      [todoSeedData[1].todoId]: todoSeedData[1],
+      [todoSeedData[2].todoId]: todoSeedData[2]
     };
 
     expect(state.entities).toEqual(newEntities);
@@ -59,7 +59,7 @@ describe('測試ToDo Reducer', () => {
         uploadedDate: new Date(),
       }
     };
-    console.log('new todo spec', newToDoItem);
+    //console.log('new todo spec', newToDoItem);
     const newEntities = {
       ...state.entities,
       [newToDoItem.todoId]: newToDoItem
@@ -80,7 +80,7 @@ describe('測試ToDo Reducer', () => {
  
   it('測試Mark Prioritized ToDo Reducer', () => {
     const prioritizedTodo = {
-      todoId: 3
+      todoId: todoSeedData[1].todoId
     };
     const action = new fromToDoActions.MarkPrioritizedToDoAction(prioritizedTodo);
     const state = fromToDoReducer.toDoReducer(initialState, action);
@@ -90,9 +90,21 @@ describe('測試ToDo Reducer', () => {
     expect(state.entities).toEqual(newEntities);
   });
 
+  it('測試Mark Prioritized ToDo Reducer', () => {
+    const prioritizedTodo = {
+      todoId: todoSeedData[1].todoId
+    };
+    const action = new fromToDoActions.CancelPrioritizedToDoAction(prioritizedTodo);
+    const state = fromToDoReducer.toDoReducer(initialState, action);
+    const newEntities = _.cloneDeep(state.entities);
+    newEntities[prioritizedTodo.todoId].isPrioritized=false;
+    newEntities[prioritizedTodo.todoId].modifiedAt = new Date();
+    expect(state.entities).toEqual(newEntities);
+  });
+
   it('測試Mark Completed ToDo Reducer', () => {
     const completedTodo = {
-      todoId: 2
+      todoId: todoSeedData[1].todoId
     };
     const action = new fromToDoActions.MarkToDoCompletedAction(completedTodo);
     const state = fromToDoReducer.toDoReducer(initialState, action);
@@ -102,7 +114,19 @@ describe('測試ToDo Reducer', () => {
     expect(state.entities).toEqual(newEntities);
   });
 
-  it('測試Sort ToDos Reducer', () => {
+  it('測試Cancel Completed ToDo Reducer', () => {
+    const completedTodo = {
+      todoId: todoSeedData[1].todoId
+    };
+    const action = new fromToDoActions.CancelToDoCompletedAction(completedTodo);
+    const state = fromToDoReducer.toDoReducer(initialState, action);
+    const newEntities = _.cloneDeep(state.entities);
+    newEntities[completedTodo.todoId].isCompleted = false;
+    newEntities[completedTodo.todoId].modifiedAt = new Date();
+    expect(state.entities).toEqual(newEntities);
+  });
+
+  xit('測試Sort ToDos Reducer', () => {
 
     const action = new fromToDoActions.SortToDosAction();
     const state = fromToDoReducer.toDoReducer(initialState, action);
@@ -120,8 +144,7 @@ describe('測試ToDo Reducer', () => {
     }).reverse();
 
     console.log(allTodos);
-    expect(state.entities).toEqual(todoEntitiesSeedData);
-
+    
   });
 
 

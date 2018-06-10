@@ -5,6 +5,7 @@ import { AddtodoComponent } from './addtodo/addtodo.component';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { DragulaModule } from 'ng2-dragula';
 import { HttpClientModule } from '@angular/common/http';
 import { KendoUISharedModule } from './shared/module/kendoUISharedModule';
 import { MaterialUISharedModule } from './shared/module/materialUISharedModule';
@@ -35,8 +36,10 @@ const routes:Routes=[
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     HttpClientModule,
+    
     MaterialUISharedModule,
-    KendoUISharedModule
+    KendoUISharedModule,
+    DragulaModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -44,9 +44,9 @@ export const todoSeedData:ToDoItem[]=[
 ];
 
 export const todoEntitiesSeedData:{[id:number]:ToDoItem}={
-  1: todoSeedData[0],
-  2: todoSeedData[1],
-  3: todoSeedData[2]
+  [todoSeedData[0].todoId]: todoSeedData[0],
+  [todoSeedData[1].todoId]: todoSeedData[1],
+  [todoSeedData[2].todoId]: todoSeedData[2]
 };
 
 
@@ -63,7 +63,7 @@ export const addToDoSeedData: ToDoFormData={
 
 
 export const updatedTodoItemSeedData: ToDoItem = {
-  todoId: 1,
+  todoId: todoSeedData[0].todoId,
   taskName: '(更新)寫新增ToDo Action Test',
   estimateDate: new Date(2018,6,8),
   estimateTime: new Date(2018,6,8,11,30),

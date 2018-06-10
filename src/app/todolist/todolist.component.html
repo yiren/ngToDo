@@ -16,4 +16,7 @@
 -->
 
 <f2e-addtodo></f2e-addtodo>
-<f2e-todoitem [todoItem]="todo" *ngFor="let todo of (filteredTodoState$ | async)"></f2e-todoitem>
+<f2e-todoitem [dragula]="'todos'"  [todoItem]="todo" *ngFor="let todo of (filteredTodoState$ | async)"></f2e-todoitem>
+<div class="to-do-count-block">
+  {{getCountBlockText()}}
+</div>

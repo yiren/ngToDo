@@ -74,12 +74,24 @@ describe('測試ToDo Actions', ()=>{
   describe('僅Mark ToDo為Priority Item', ()=>{
     it('Prioritized ToDo Action',()=>{
       const prioritizedItem={
-        todoId:2
+        todoId:todoSeedData[2].todoId
       };
       const action= new fromToDoActions.MarkPrioritizedToDoAction(prioritizedItem);
 
       expect({...action}).toEqual({
         type: fromToDoActions.ToDoTypes.MarkToDoPrioritizedAction,
+        payload: prioritizedItem
+      });
+    });
+
+    it('Cancel Prioritized ToDo Action',()=>{
+      const prioritizedItem={
+        todoId:todoSeedData[2].todoId
+      };
+      const action= new fromToDoActions.CancelPrioritizedToDoAction(prioritizedItem);
+
+      expect({...action}).toEqual({
+        type: fromToDoActions.ToDoTypes.CancelToDoPrioritizedAction,
         payload: prioritizedItem
       });
     });
@@ -89,13 +101,27 @@ describe('測試ToDo Actions', ()=>{
 
     it('Mark ToDo Complete Action', () => {
       const completedItem = {
-        todoId: 3
+        todoId: todoSeedData[0].todoId
       };
 
       const action = new fromToDoActions.MarkToDoCompletedAction(completedItem);
 
       expect({...action}).toEqual({
         type: fromToDoActions.ToDoTypes.MarkToDoCompletedAction,
+        payload: completedItem
+      });
+
+    });
+
+    it('Cancel ToDo Complete Action', () => {
+      const completedItem = {
+        todoId: todoSeedData[0].todoId
+      };
+
+      const action = new fromToDoActions.CancelToDoCompletedAction(completedItem);
+
+      expect({...action}).toEqual({
+        type: fromToDoActions.ToDoTypes.CancelToDoCompletedAction,
         payload: completedItem
       });
 

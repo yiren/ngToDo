@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import 'dragula/dist/dragula.css';
 body {
     margin: 0;
     padding: 0;
@@ -50,6 +52,7 @@ body {
     max-width: 620px;
     margin-bottom: 20px;
     margin-top: 20px;
+    box-shadow:1px 1px 2px 2px #ccc;
     //background-color: transparent;
 }
 
@@ -68,9 +71,10 @@ body {
 
 .list-card {
     max-width: 620px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     background-color: transparent;
     //background-color: transparent;
+    box-shadow:1px 1px 2px 2px #ccc;
 }
 
 .list-card-content {
@@ -175,3 +179,8 @@ body {
 }
 
 ;
+.to-do-count-block{
+  color:#C8C8C8 ;
+  font-style: italic;
+  padding-left:15px;
+}
