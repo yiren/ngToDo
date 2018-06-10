@@ -49,7 +49,7 @@ export class TodolistComponent implements OnInit {
       (todos, queryParams)=>{
 
         if(isNaN(queryParams)){
-          //console.log(queryParams)
+          this.isCompleted=false;
           return todos;
         }
         this.isCompleted=queryParams ? true : false;

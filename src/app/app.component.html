@@ -2,17 +2,17 @@
     <div fxFlex></div>
     <div fxFlex="620px" fxLayout fxLayoutAlign="start stretch" fxLayoutGap="20px">
 
-        <a class="tab" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" fxFlex fxLayoutAlign="center center" [routerLink]="['']">
+        <a class="tab" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" fxFlex fxLayoutAlign="center center" routerLink="/">
             My Task
           </a>
 
-            <a class="tab" routerLinkActive="active" fxFlex fxLayoutAlign="center center" [routerLink]="['']" [queryParams]="{ completed: 0}">
+            <a class="tab" routerLinkActive="active" fxFlex fxLayoutAlign="center center" routerLink="/" [queryParams]="{ completed: 0}">
                 In Progress
               </a>
 
 
 
-            <a class="tab" routerLinkActive="active" fxFlex fxLayoutAlign="center center" [routerLink]="['']" [queryParams]="{ completed: 1}">
+            <a class="tab" routerLinkActive="active" fxFlex fxLayoutAlign="center center" routerLink="/" [queryParams]="{ completed: 1}">
                 Completed
               </a>
 
