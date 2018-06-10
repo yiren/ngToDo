@@ -5,12 +5,12 @@ export const todoSeedData:ToDoItem[]=[
   {
     todoId: 9,
     taskName: '寫新增ToDo Action Test',
-    estimateDate: new Date(2018, 5, 4),
-    estimateTime: new Date(2018, 5, 4, 14, 30),
+    estimateDate: new Date(2018, 4, 14),
+    estimateTime: new Date(2018, 4, 14, 14, 30),
     comment: '練習TDD',
-    isCompleted: true,
-    isPrioritized: false,
-    modifiedAt:new Date(2018, 5, 4),
+    isCompleted: false,
+    isPrioritized: true,
+    modifiedAt:new Date(2018, 5, 10),
     itemFile:{
         
         fileName:'20180514.zip',
@@ -21,32 +21,62 @@ export const todoSeedData:ToDoItem[]=[
   {
     todoId: 4,
     taskName: '寫更新ToDo Action Test',
-    estimateDate: new Date(2018, 5, 5),
-    estimateTime: new Date(2018, 5, 5, 18, 30),
+    estimateDate: new Date(2018, 5, 18),
+    estimateTime: new Date(2018, 5, 18, 18, 30),
     comment: '',
-    modifiedAt:new Date(2018, 5, 5),
+    modifiedAt:new Date(2018, 5, 7),
     isCompleted: false,
-    isPrioritized: true,
+    isPrioritized: false,
     itemFile: null
   },
   {
     todoId: 3,
     taskName: '寫更新ToDo Reducer Test',
-    estimateDate: new Date(2018, 5, 6),
+    estimateDate: null,
     modifiedAt:new Date(2018, 5, 6),
-    estimateTime: new Date(2018, 5, 4, 9, 30),
-    comment: 'Reducer',
+    estimateTime: null,
+    comment: null,
     isCompleted: false,
     isPrioritized: false,
-    itemFile: null
+    itemFile: {
+      fileName:'reducerTest.zip',
+      uploadedDate:new Date(2018, 5, 4),  
+    }
   },
+  {
+    todoId: 7,
+    taskName: '用flexbox排版nav',
+    estimateDate: null,
+    modifiedAt:new Date(2018, 5, 6),
+    estimateTime: null,
+    comment: '使用@angular/flexbox',
+    isCompleted: false,
+    isPrioritized: true,
+    itemFile: {
+      fileName:'angularFlexbox.zip',
+      uploadedDate:new Date(2018, 5, 4),  
+    }
+  },
+  {
+    todoId: 18,
+    taskName: '登記參加F2E活動',
+    estimateDate: null,
+    modifiedAt:new Date(2018, 4, 22),
+    estimateTime: null,
+    comment: null,
+    isCompleted: true,
+    isPrioritized: false,
+    itemFile: null
+  }
 
 ];
 
 export const todoEntitiesSeedData:{[id:number]:ToDoItem}={
   [todoSeedData[0].todoId]: todoSeedData[0],
   [todoSeedData[1].todoId]: todoSeedData[1],
-  [todoSeedData[2].todoId]: todoSeedData[2]
+  [todoSeedData[2].todoId]: todoSeedData[2],
+  [todoSeedData[3].todoId]: todoSeedData[3],
+  [todoSeedData[4].todoId]: todoSeedData[4]
 };
 
 

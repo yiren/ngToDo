@@ -49,6 +49,10 @@ export function sortToDoItems(allTodos:ToDoItem[]){
       return todo.isPrioritized;
     }).reverse();
 
+    allTodos = _.sortBy(allTodos, (todo: ToDoItem) => {
+      return todo.isCompleted;
+    });
+
     return allTodos;
 }
 
@@ -127,7 +131,7 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
       const entities = _.cloneDeep(state.entities);
 
       entities[action.payload.todoId].isPrioritized = false;
-      entities[action.payload.todoId].modifiedAt = new Date();
+      //entities[action.payload.todoId].modifiedAt = new Date();
       return {
         ...state,
         entities
@@ -138,7 +142,7 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
       const entities = _.cloneDeep(state.entities);
       
       entities[action.payload.todoId].isCompleted = true;
-      entities[action.payload.todoId].modifiedAt = new Date();
+      //entities[action.payload.todoId].modifiedAt = new Date();
       return {
         ...state,
         entities
@@ -149,7 +153,7 @@ export function toDoReducer(state = initialState, action: fromTodoActions.ToDoAc
       const entities = _.cloneDeep(state.entities);
       
       entities[action.payload.todoId].isCompleted = false;
-      entities[action.payload.todoId].modifiedAt = new Date();
+      //entities[action.payload.todoId].modifiedAt = new Date();
       return {
         ...state,
         entities

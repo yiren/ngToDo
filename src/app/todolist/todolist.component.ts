@@ -70,4 +70,26 @@ export class TodolistComponent implements OnInit {
     }
     return `${this.taskCount} task(s) left`;
   }
+  prioritizedAction(payload:{isPrioritized:boolean,todoId:number}){
+    //console.log(payload);
+    if(payload.isPrioritized){
+      this.store.dispatch(new fromToDoActions.MarkPrioritizedToDoAction({todoId:payload.todoId}));
+    }
+    if(!payload.isPrioritized){
+      this.store.dispatch(new fromToDoActions.CancelPrioritizedToDoAction({todoId:payload.todoId}));
+    }
+  }
+
+  completeAction(payload:{isCompleted:boolean,todoId:number}){
+    //console.log(payload)
+    if(payload.isCompleted){
+      this.store.dispatch(new fromToDoActions.MarkToDoCompletedAction({todoId:payload.todoId}));
+    }
+    if(!payload.isCompleted){
+      this.store.dispatch(new fromToDoActions.CancelToDoCompletedAction({todoId:payload.todoId}));
+    }
+  }
+  updateToDoAction(payload:ToDoItem){
+    this.store.dispatch(new fromToDoActions.UpdateToDoAction(payload));
+  }
 }

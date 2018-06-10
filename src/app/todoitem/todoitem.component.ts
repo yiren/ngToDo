@@ -1,14 +1,10 @@
 import * as generalDateTimeFormat from '../shared/config/datetimeFormat';
 import * as moment from 'moment';
 
-import { CancelPrioritizedToDoAction, CancelToDoCompletedAction, MarkPrioritizedToDoAction, UpdateToDoAction } from './../store/actions/to-do-data-actions.actions';
-import { Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { AppState } from '../store';
 import { ItemFile } from './../shared/model/ItemFile';
-import { MarkToDoCompletedAction } from '../store/actions/to-do-data-actions.actions';
-import { Store } from '@ngrx/store';
 import { ToDoItem } from '../shared/model/ToDoItem';
 
 @Component({
@@ -43,11 +39,18 @@ export class TodoitemComponent implements OnInit {
 
   @ViewChild('fileInput')
   fileInputEl:ElementRef;
+
+  @Output()
+  completeAction=new EventEmitter<{isCompleted:boolean,todoId:number}>();
+
+  @Output()
+  prioritizedAction=new EventEmitter<{isPrioritized:boolean,todoId:number}>();
+  
+  @Output()
+  updateToDoAction=new EventEmitter<ToDoItem>();
+
   newUploadFile:ItemFile=null;
-  constructor(
-    private fb:FormBuilder,
-    private store:Store<AppState>
-  ) { }
+  
 
   todoEditForm:FormGroup;
   dateFormat = generalDateTimeFormat.generalDateFormat;
@@ -56,6 +59,10 @@ export class TodoitemComponent implements OnInit {
   datePlaceHolderFormat = generalDateTimeFormat.generalDatePlaceHolderFormat;
   timePlaceHolderFormat = generalDateTimeFormat.generalTimePlaceHolderFormat;
   todoId:number;
+  
+  constructor(
+    private fb:FormBuilder
+  ) { }
 
   ngOnInit() {
     this.todoEditForm = this.fb.group({
@@ -69,28 +76,14 @@ export class TodoitemComponent implements OnInit {
       'todoId': [this.todoItem.todoId],
       'modifiedAt':[this.todoItem.modifiedAt]
     });
-    
+    this.todoId=this.todoEditForm.controls['todoId'].value;
     this.isPrioritized=this.todoItem.isPrioritized;
     this.isComplete=this.todoItem.isCompleted;
     this.todoEditForm.controls['isCompleted'].valueChanges.subscribe(completeState=>{
-      this.todoId=this.todoEditForm.controls['todoId'].value;
-     // console.log(this.todoId);
-      if(completeState){
-        this.store.dispatch(new MarkToDoCompletedAction({todoId:this.todoId}));
-      }
-      if(!completeState){
-        this.store.dispatch(new CancelToDoCompletedAction({todoId:this.todoId}));
-      }
+        this.completeAction.emit({isCompleted:completeState, todoId:this.todoId});    
     });
     this.todoEditForm.controls['isPrioritized'].valueChanges.subscribe(prioritizedState=>{
-      this.todoId=this.todoEditForm.controls['todoId'].value;
-      //console.log(this.todoId);
-      if(prioritizedState){
-        this.store.dispatch(new MarkPrioritizedToDoAction({todoId:this.todoId}));
-      }
-      if(!prioritizedState){
-        this.store.dispatch(new CancelPrioritizedToDoAction({todoId:this.todoId}));
-      }
+        this.prioritizedAction.emit({isPrioritized:prioritizedState, todoId:this.todoId});
     });
   }
   enableTextAreaEdit(){
@@ -101,11 +94,17 @@ export class TodoitemComponent implements OnInit {
   }
 
   togglePrioritize(){
-    const isPrioritizedControl = this.todoEditForm.controls['isPrioritized'];
+    if(this.isEdit){
+      this.isPrioritized = !this.isPrioritized;  
+    }
+    if(!this.isEdit){
+      const isPrioritizedControl = this.todoEditForm.controls['isPrioritized'];
 
     isPrioritizedControl.setValue(!isPrioritizedControl.value);
-
+    
     this.isPrioritized = !this.isPrioritized;
+    }
+    
     // if(this.isPrioritized){
     //   this.store.dispatch(new MarkPrioritizedToDoAction({todoId:this.todoId}));
     // }
@@ -173,8 +172,9 @@ export class TodoitemComponent implements OnInit {
       this.todoEditForm.controls['itemFile'].setValue(this.newUploadFile);
     }
     this.todoEditForm.controls['modifiedAt'].setValue(new Date());
-    console.log(this.todoEditForm.value);
-    this.store.dispatch(new UpdateToDoAction(this.todoEditForm.value));
+    //console.log(this.todoEditForm.value);
+    this.updateToDoAction.emit(this.todoEditForm.value);
+    this.isEdit=false;
   }
-
+  
 }
